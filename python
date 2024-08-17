@@ -1,0 +1,298 @@
+###컬렉션
+여러값을 하나의 이름으로 묶어서 관리하는 자료형
+- 리스트(대괄호, 중복가능, 수정가능, 순서있음)
+- 튜플(소괄호, 중복가능, 수정불가, 순서있음)
+- 세트(중괄호, 중복불가, 수정가능, 순서없음)
+- 딕셔너리(중괄호, 키와 밸류, 수정가능)
+
+###리스트
+
+# 여러 타입의 자료형 저장 가능
+li = [1,3.14,"hello"]
+
+# 인덱싱
+li[0]
+# 슬라이싱(마지막 정수는 미포함)
+li[0:3]
+li[::-1]
+li[:-2:-1]
+li[:-3:-1]
+
+# 리스트 추가 - append
+li.append(100)
+li  #마지막에 추가
+
+# 리스트 추가 - insert
+li.insert(0,1000)
+print(li)   # 원하는 곳에 추가 가능
+
+# 리스트 삭제 - pop
+poped = li.pop(len(li)-1)   # 마지막 요소 삭제
+print(li)
+print(poped)    #삭제된 요소를 반환한다
+
+# 리스트 삭제 - del
+del li[0]
+li
+
+li.append(100)
+li.append(101)
+
+# 리스트 삭제 - remove
+li.remove(100)
+li
+
+# 리스트 삭제 - clear
+li.clear()
+li
+
+### 리스트 함수
+
+# sort - 리스트 정렬
+# 랜덤으로 리스트에 숫자를 추가하여 정렬되지 않은 리스트 생성 후 정렬하기
+import random
+
+random_list = random.sample(range(10),10)
+print(random_list)
+random_list.sort()
+print(random_list)
+
+# sort와 sorted
+
+#1. sort는 리스트.sort()의 형식
+# 정렬된 값을 반환하는 개념이 아니라 원본을 변경
+
+li = [1,3,2,5,2]
+li2 = li.sort()
+print(li)   #원본정렬완료
+print(li2) #반환값없음
+
+
+#2. sorted는 sorted(리스트)의 형식
+# 정렬된 값을 반환하고 원본은 유지된다.
+
+li = [1,3,2,5,2]
+li2 = sorted(li)
+print(li)   #원본유지
+print(li2) #반환값있음
+
+# reverse - 리스트 뒤집기
+# 하나씩 pop 하여 반환된 값을 새로운 리스트에 순서대로 저장해도 뒤집힌다.
+random_list.reverse()
+print(random_list)
+
+# index - 특정 인덱스의 값 반환
+
+random_list.index(5)
+
+# extend - 리스트 확장
+
+li = [1,2,3]
+li.extend([4,5,6])
+li  #extend는 리스트의 값을 추가
+li.append([4,5,6])
+li  #append는 리스트 자체를 추가
+
+# list의 append 함수로는 1개의 인자만 추가할 수 있기 때문에 여러개를 붙일때는 extend가 유용해 보임
+# 리스트 자체를 append하는건 가능!
+
+### 튜플
+
+t = (1,2,3)
+t[0]
+
+### 세트
+수학의 집합개념을 구현
+중복된 값 저장이 불가능 하다는 특징을 활용해 중복제거용으로 사용
+
+s = {1,1,2,3,4}
+s   #중복불가
+
+#리스트의 중복제거
+li = [1,1,2,3,4]
+li = list(set(li))
+li
+
+#세트 요소 추가
+s = {1,2,3,4,5}
+s.add(6)
+print(s)
+
+#세트 요소 삭제 - remove
+s.remove(6)
+print(s)
+
+#세트 요소 삭제 - discard
+s.discard(5)
+print(s)
+
+#remove와 discard의 차이
+# s.remove(6) #없는값을 삭제하려하면 에러발생
+s.discard(6)  #오류발생x
+
+### 딕셔너리
+
+dict = {'a' : 1, 'b' : 2, 'c' : 3}  #{키1 : 값1 , 키2 : 값2}
+print(dict)
+
+print(dict['a']) # dict[키] == 값
+
+# 딕셔너리 추가
+
+dict['d'] = 4
+print(dict)
+
+# 값 수정
+dict['d'] = 5
+
+# 값 수정2
+dict.update(a = 100)
+print(dict)
+
+# 딕셔너리 삭제
+
+#pop
+poped = dict.pop('a')
+print(poped)
+print(dict)
+
+#del
+del dict['d']
+print(dict)
+
+### mutable / immutable
+- mutable - 리스트, 세트, 딕셔너리
+- immutable - 정수, 실수, 문자열, 튜플
+
+#mutable 할당 받은 메모리에 저장된 값을 다른 값으로 바꿀 수 있다.
+
+#값이 바뀌어도 메모리 주소가 변하지 않는 mutable
+a = [1,2,3]
+print(id(a))
+
+a.append(4)
+print(id(a))
+
+# 메모리 공유함
+
+aa = a
+print(id(aa))
+
+aa.append(4)
+print(aa)
+print(a)    #aa에 추가했는데도 메모리를 공유하기 때문에 a에도 영향을 줌
+
+#값이 바뀌면 메모리 주소도 바뀌는 immutable
+b = 1
+print(id(b))
+
+b += 1
+print(id(b))
+
+### 문자열
+- 슬라이싱과 인덱스 등은 리스트와 중복되므로 예제코드로 대체
+- 문자열 함수
+- 문자열 포매팅
+
+# 문자열 슬라이싱과 find
+# 이메일 주소 리스트에서 아이디만 추출하기
+
+#1. 각 요소의 @ 값 인덱스 찾기
+#2. @값을 변수에 저장하여
+#3. @까지만 슬라이싱으로 값 추출하기(슬라이싱검색에서 마지막 요소는 출력하지 않기 때문에 아이디만 뽑을 수 있다.)
+
+strList = ["ugyung@gmail.com","ugyungugyung@gmail.com","hi@gmail.com"]
+for i in strList:
+    vno = i.find("@")   #@의 자리값 찾기
+    print(i[:vno])  #아이디만 추출 가능
+
+#문자열 함수
+
+str = 'abc 123 '
+
+print(str.count('a'))
+print(str.capitalize()) #맨 앞자리만 대문자로
+print(str.upper())  #모든 문자 대문자로
+print(str.lower())  #모든 문자 소문자로
+print(str.strip())  #공백제거
+print(str.replace(' ',''))  #공백제거
+print(str.split())  #공백을 기준으로 문자열 나누기
+print(str.isalpha())    #문자열이 알파벳으로만 이루어졌는지 확인
+print(str.isdigit())    #문자열이 숫자로만 이루어졌는지 확인
+print(str.isalnum())    #문자열이 알파벳과 숫자로만 이루어졌는지 확인
+print(str.isupper())    #문자열이 대문자인지 확인
+print(str.islower())    #문자열이 소문자인지 확인
+print(str.startswith('a'))  #문자열이 a로 시작하는지 확인
+print(str.endswith('a'))    #문자열이 a로 끝나는지 확인
+print(str.join('abc'))  #문자열 사이에 abc를 삽입
+print(str.lstrip()) #왼쪽 공백 제거
+print(str.rstrip()) #오른쪽 공백 제거
+
+#replace 추가
+
+str1 = 'abc ABC abc'
+
+print(str1.replace('abc','d'))
+print(str.replace('abc','d',1))   #개수지정가능
+str1 = str1.replace('ABC','')  #제거도 가능
+print(str)
+
+# 문자열 포매팅
+
+name = "홍유경"
+age = 20
+
+print("이름은 {}이고 나이는 {}입니다.".format(name,age))
+print("이름은 {0}이고 나이는 {1}입니다.".format(name,age))
+print(f"이름은 {name}이고 나이는 {age}입니다.")
+print("이름은 %s이고 나이는 %d입니다."%(name,age))
+print("이름은 %s이고 나이는 %d입니다."%("홍유경",20))
+
+# format 함수
+print(format(10000))
+print(format(10000,"_"))    #천단위 구분
+print(format(10000,","))    #천단위 구분
+
+# ord   유니코드 값 반환
+print(ord("A"))
+print(ord("a"))
+
+# chr   해당 유니코드값의 문자를 반환
+print(chr(65))
+print(chr(97))
+
+# eval
+# 표현식을 문자열로 전달하여 결과값을 반환하는 함수
+
+print(eval('100+200'))
+print(eval('min(1,2,3)'))
+a = 10
+print(eval('a*5'))
+
+### 그 외 함수
+- enumerate
+- zip
+- map
+
+# enumerate - 리스트의 요소와 인덱스를 함께 출력
+# enumerate 함수는 반복 가능한(iterable) 객체를 입력받아
+# 각 요소와 해당 요소의 인덱스를 포함하는 튜플을 반환
+# 주로 반복문에서 사용하여 인덱스와 요소를 함께 사용할 때 유용함
+
+fruits = ['apple', 'banana', 'cherry']
+for index, fruit in enumerate(fruits):
+    print(index, fruit)
+
+# zip - 두 리스트의 요소를 묶어서 출력
+# 반복 가능한 객체들을 병렬로 묶어서 각 객체의 요소들을 튜플로 반환
+
+names = ['Alice', 'Bob', 'Charlie']
+ages = [25, 30, 35]
+for name, age in zip(names, ages):
+    print(f'{name} is {age} years old')
+
+# map - 리스트의 모든 요소에 함수를 적용
+
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)
